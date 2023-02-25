@@ -18,5 +18,5 @@ cp ${script_location}/files/nginx-roboshop.conf /etc/nginx/default.d/roboshop.co
 echo -e "\e[35m enable nginx\e[om"
 systemctl enable nginx
 
-echo -e "\e[35m restart nginx file"
+echo -e "\e[35m restart nginx file\e[0m"
 systemctl restart nginx
