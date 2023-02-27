@@ -1,61 +1,61 @@
 source common.sh
 
-echo -e "\e[35m configure node js repos\e[0m"
+print_head "configure node js repos"
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${LOG}
 status_check
 
-echo -e "\e[35m install nodejs\e[0m"
+print_head "install nodejs"
 yum install nodejs -y &>>${LOG}
 status_check
 
-echo -e "\e[35m add application user\e[0m"
+print_head "add application user"
 useradd roboshop &>>${LOG}
 status_check
 
 mkdir -p /app &>>${LOG}
 
-echo -e "\e[35m downloading app content\e[0m"
+print_head "downloading app content"
 curl -L -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip &>>${LOG}
 status_check
 
-echo -e "\e[35m cleanup old content\e[0m"
+print_head "cleanup old content"
 rm -rf /app/* &>>${LOG}
 status_check
 
-echo -e "\e[35m extract old content\e[0m"
+print_head "extract old content"
 cd /app &>>${LOG}
 unzip /tmp/catalogue.zip &>>${LOG}
 status_check
 
-echo -e "\e[35m install nodejs dependancies\e[0m"
+print_head "install nodejs dependancies"
 cd /app &>>${LOG}
 npm install &>>${LOG}
 status_check
 
-echo -e "\e[35m configure catalogue service file\e[0m"
+print_head "configure catalogue service file"
 cp ${script_location}/files/catalogue.service /etc/systemd/system/catalogue.service &>>${LOG}
 status_check
 
-echo -e "\e[35m reload systemd\e[0m"
+print_head "reload systemd"
 systemctl daemon-reload &>>${LOG}
 status_check
 
-echo -e "\e[35m enable catalogue server\e[0m"
+print_head "enable catalogue server"
 systemctl enable catalogue &>>${LOG}
 status_check
 
-echo -e "\e[35m start catalogue server\e[0m"
+print_head "start catalogue server"
 systemctl start catalogue &>>${LOG}
 status_check
 
-echo -e "\e[35m configuring mongo repo\e[0m"
+print_head "configuring mongo repo"
 cp ${script_location}/files/mongodb.repo /etc/yum.repos.d/mongodb.repo &>>${LOG}
 status_check
 
-echo -e "\e[35m install mongo client\e[0m"
+print_head "install mongo client"
 yum install mongodb-org-shell -y &>>${LOG}
 status_check
 
-echo -e "\e[35m load schema\e[0m"
+print_head "load schema"
 mongo --host mongodb-dev.anandnandhu.online </app/schema/catalogue.js &>>${LOG}
 status_check
