@@ -1,14 +1,4 @@
-script_location=$(pwd)
-LOG=/tmp/roboshop.log
-
-status_check() {
-  if [ $? -eq 0 ]; then
-    echo -e "\e[32m SUCESS\e[0m"
-  else
-    echo -e "\e[31m FAILURE\e[0m"
-  exit
-  fi
-}
+source common.sh
 
 echo -e "\e[35m configure node js repos\e[0m"
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${LOG}
