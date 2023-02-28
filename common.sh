@@ -65,7 +65,7 @@ NODEJS() {
   print_head "start ${component} server"
   systemctl start ${component} &>>${LOG}
   status_check
-
+  if [ ${schema_load} == "true" ]; then
   print_head "configuring mongo repo"
   cp ${script_location}/files/mongodb.repo /etc/yum.repos.d/mongodb.repo &>>${LOG}
   status_check
