@@ -18,7 +18,7 @@ yum install mysql-community-server -y &>>${LOG}
 status_check
 
 print_head "enable mongodb"
-systemctl enable mongod &>>${LOG}
+systemctl enable mysqld &>>${LOG}
 status_check
 
 print_head "restart mongodb"
