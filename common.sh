@@ -77,4 +77,5 @@ NODEJS() {
   print_head "load schema"
   mongo --host mongodb-dev.anandnandhu.online </app/schema/${component}.js &>>${LOG}
   status_check
+  fi
 }
