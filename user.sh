@@ -1,4 +1,4 @@
-source commom.sh
+source common.sh
 
 component=user
 
