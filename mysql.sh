@@ -21,8 +21,8 @@ print_head "Enable MySQL"
 systemctl enable mysqld &>>${LOG}
 status_check
 
-print_head "restart mongodb"
-systemctl restart mongod &>>${LOG}
+print_head "restart mysql"
+systemctl restart mysqld &>>${LOG}
 status_check
 
 print_head "reset default database password"
