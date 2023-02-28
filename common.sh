@@ -41,7 +41,7 @@ NODEJS() {
   status_check
 
   print_head "extract app content"
-  cd /app &>>${LOG}
+  cd /app
   unzip /tmp/${component}.zip &>>${LOG}
   status_check
 
