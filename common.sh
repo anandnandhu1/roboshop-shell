@@ -112,7 +112,7 @@ NODEJS() {
 
 MAVEN() {
   print_head "install maven"
-  yum install nodejs -y &>>${LOG}
+  yum install maven -y &>>${LOG}
   status_check
 
   APP_PREREQ
