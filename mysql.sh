@@ -17,7 +17,7 @@ print_head "install mysql server"
 yum install mysql-community-server -y &>>${LOG}
 status_check
 
-print_head "enable mongodb"
+print_head "Enable MySQL"
 systemctl enable mysqld &>>${LOG}
 status_check
 
