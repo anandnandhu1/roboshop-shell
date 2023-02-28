@@ -33,7 +33,7 @@ NODEJS() {
   mkdir -p /app &>>${LOG}
 
   print_head "downloading app content"
-  curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component} &>>${LOG}
+  curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip &>>${LOG}
   status_check
 
   print_head "cleanup old content"
