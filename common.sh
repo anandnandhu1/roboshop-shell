@@ -57,6 +57,37 @@ SYSTEMD_SETUP() {
     systemctl start ${component} &>>${LOG}
     status_check
 }
+LOAD_SCHEMA() {
+  if [ ${schema_load} == "true" ]; then
+
+    if [ ${schema_type} == "mongo" ]; then
+    print_head "configuring mongo repo"
+    cp ${script_location}/files/mongodb.repo /etc/yum.repos.d/mongodb.repo &>>${LOG}
+    status_check
+
+    print_head "install mongo client"
+    yum install mongodb-org-shell -y &>>${LOG}
+    status_check
+
+    print_head "load schema"
+    mongo --host mongodb-dev.anandnandhu.online </app/schema/${component}.js &>>${LOG}
+    status_check
+    fi
+
+    if [ ${schema_type} == "mysql" ]; then
+
+        print_head "install mysql client"
+        yum install mysql -y  &>>${LOG}
+        status_check
+
+        print_head "load schema"
+        mysql -h mysql-dev.anandnandhu.online -uroot -p${root_mysql_password} < /app/schema/shipping.sql  &>>${LOG}
+        status_check
+        fi
+
+  fi
+}
+
 
 NODEJS() {
   print_head "configure node js repos"
@@ -76,19 +107,7 @@ NODEJS() {
 
   SYSTEMD_SETUP
 
-  if [ ${schema_load} == "true" ]; then
-  print_head "configuring mongo repo"
-  cp ${script_location}/files/mongodb.repo /etc/yum.repos.d/mongodb.repo &>>${LOG}
-  status_check
-
-  print_head "install mongo client"
-  yum install mongodb-org-shell -y &>>${LOG}
-  status_check
-
-  print_head "load schema"
-  mongo --host mongodb-dev.anandnandhu.online </app/schema/${component}.js &>>${LOG}
-  status_check
-  fi
+  LOAD_SCHEMA
 }
 
 maven() {
@@ -105,4 +124,8 @@ maven() {
   print_head "copy a file to app location"
   mv target/${component}-1.0.jar ${component}.jar &>>${LOG}
   status_check
+
+  SYSTEMD_SETUP
+
+  LOAD_SCHEMA
 }
