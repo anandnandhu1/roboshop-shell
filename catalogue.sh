@@ -22,7 +22,7 @@ print_head "cleanup old content"
 rm -rf /app/* &>>${LOG}
 status_check
 
-print_head "extract old content"
+print_head "extract app content"
 cd /app &>>${LOG}
 unzip /tmp/catalogue.zip &>>${LOG}
 status_check
