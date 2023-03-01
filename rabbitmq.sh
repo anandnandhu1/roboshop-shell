@@ -1,6 +1,6 @@
 source common.sh
 
-if [ -z "${roboshop_rabbitmq_passwoed}" ]; then
+if [ -z "${roboshop_rabbitmq_password}" ]; then
   echo "variable roboshop_rabbitmq_password is missing"
   exit
 fi
@@ -26,7 +26,7 @@ systemctl start rabbitmq-server &>>${LOG}
 status_check
 
 print_head "add application user"
-rabbitmqctl add_user roboshop ${roboshop_rabbitmq_passwoed} &>>${LOG}
+rabbitmqctl add_user roboshop ${roboshop_rabbitmq_password} &>>${LOG}
 status_check
 
 print_head "add tags to application user"
